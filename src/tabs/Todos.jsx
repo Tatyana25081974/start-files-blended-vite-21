@@ -1,57 +1,74 @@
 import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import { Form } from "../components/Form/Form";
-import  TodoList  from "../components/TodoList/TodoList";
+import TodoList from "../components/TodoList/TodoList";
+import EditForm from "../components/EditForm/EditForm"; // ✅ Додано імпорт
 
-const LOCAL_STORAGE_KEY = "todos"; // 🔹 Ключ для localStorage
+const LOCAL_STORAGE_KEY = "todos";
 
-export const Todos = () => {
-  // 🔹 Читаємо тудушки з localStorage при завантаженні сторінки
+const Todos = () => {
   const [todos, setTodos] = useState(() => {
-    const savedTodos = localStorage.getItem(LOCAL_STORAGE_KEY); // Отримуємо дані
-    return savedTodos ? JSON.parse(savedTodos) : []; // Якщо є – парсимо, якщо немає – повертаємо []
+    const savedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return savedTodos ? JSON.parse(savedTodos) : [];
   });
-  // 🔹 Додаємо стани для редагування.Ці useState визначають, чи потрібно показувати звичайну Form, чи EditForm.
-  const [isEditing, setIsEditing] = useState(false); // Відповідає за показ EditForm
-  const [currentTodo, setCurrentTodo] = useState({}); // Тут зберігається todo, яке ми редагуємо
 
-const handleEditTodo = (todo) => {
-  setIsEditing(true);  // Вмикаємо режим редагування
-  setCurrentTodo(todo); // Зберігаємо todo, яке редагуємо
-};
-  // 🔹 Зберігаємо тудушки у localStorage при кожній зміні `todos`
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
 
-  // 🔹 Додаємо нову тудушку
-  const addTodo = (text) => {
-    const newTodo = { id: nanoid(), text }; // Створюємо { id, text }
-    setTodos((prevTodos) => [...prevTodos, newTodo]); // Додаємо у state
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentTodo, setCurrentTodo] = useState({});
+
+  // ✅ Функція для редагування
+  const handleEditTodo = (todo) => {
+    setIsEditing(true);
+    setCurrentTodo(todo);
   };
 
-  // 🔹 Видаляємо тудушку
+  // ✅ Функція для оновлення тудушки
+  const updateTodo = (text) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === currentTodo.id ? { ...todo, text } : todo
+      )
+    );
+    setIsEditing(false);
+    setCurrentTodo({});
+  };
+
+  // ✅ Функція для скасування редагування
+  const cancelUpdate = () => {
+    setIsEditing(false);
+    setCurrentTodo({});
+  };
+
+  const addTodo = (text) => {
+    const newTodo = { id: nanoid(), text };
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
+  };
+
   const deleteTodo = (id) => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
   return (
-  <div>
-    <h1>Todo List</h1>
-    
-    {isEditing ? (
-      <EditForm
-        updateTodo={updateTodo}
-        cancelUpdate={cancelUpdate}
-        defaultValue={currentTodo.text}
-      />
-    ) : (
-      <>
-        <Form onSubmit={addTodo} />
-        <TodoList todos={todos} onDelete={deleteTodo} onEdit={handleEditTodo} />
-      </>
-    )}
-  </div>
-);
+    <div>
+      <h1>Todo List</h1>
+
+      {isEditing ? (
+        <EditForm
+          updateTodo={updateTodo}
+          cancelUpdate={cancelUpdate}
+          defaultValue={currentTodo.text}
+        />
+      ) : (
+        <>
+          <Form onSubmit={addTodo} />
+          <TodoList todos={todos} onDelete={deleteTodo} onEdit={handleEditTodo} />
+        </>
+      )}
+    </div>
+  );
+};
 
 export default Todos;
