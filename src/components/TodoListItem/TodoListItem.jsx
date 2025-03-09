@@ -1,18 +1,21 @@
 import css from "./TodoListItem.module.css";
-import { RiDeleteBinLine } from "react-icons/ri"; // Іконка кошика
+import { RiDeleteBinLine, RiEdit2Line } from "react-icons/ri"; // Іконки для кнопок
 
-export default function TodoListItem ({ todo, onDelete, onEdit }) {
+export default function TodoListItem({ todo, onDelete, onEdit }) {
   return (
-     <div>
+    <div>
       <p>TODO #{todo.id}</p>
       <p>{todo.text}</p>
 
-      <button onClick={() => onDelete(todo.id)}>Delete</button>
+      <button onClick={() => onDelete(todo.id)}>
+        <RiDeleteBinLine size={24} /> Delete
+      </button>
 
-      {/* Кнопка Edit викликає onEdit(todo) */}
+      {/* Викликає onEdit(todo) при натисканні */}
       <button onClick={() => onEdit(todo)}>
-        <RiEdit2Line size={24} />
+        <RiEdit2Line size={24} /> Edit
       </button>
     </div>
   );
-};
+}
+

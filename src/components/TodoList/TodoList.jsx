@@ -6,7 +6,7 @@ import TodoListItem  from "../TodoListItem/TodoListItem";
     <ul className={css.list}>
       {todos.map((todo) => (
         <li key={todo.id} className={css.listItem}>
-          <TodoListItem todo={todo} onDelete={onDelete} />
+          <TodoListItem todo={todo} onDelete={onDelete} onEdit={onEdit}/>
         </li>
       ))}
     </ul>
