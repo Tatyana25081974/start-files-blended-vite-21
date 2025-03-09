@@ -1,0 +1,64 @@
+.form {
+    display: flex;
+    /* Робимо форму гнучкою */
+    justify-content: center;
+    /* Центруємо елементи по горизонталі */
+    align-items: center;
+    /* Центруємо по вертикалі */
+    gap: 10px;
+    /* Відступ між елементами */
+    padding: 10px;
+    background-color: #f8f9fa;
+    /* Світло-сірий фон */
+    border-radius: 8px;
+    /* Округлені кути */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Легка тінь */
+    margin-bottom: 20px;
+    /* Відступ знизу */
+}
+
+.input {
+    width: 300px;
+    /* Фіксована ширина */
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    /* Світло-сіра рамка */
+    border-radius: 5px;
+    /* Округлені краї */
+    outline: none;
+    /* Видаляємо стандартне підсвічування */
+    transition: border-color 0.3s ease-in-out;
+}
+
+.input:focus {
+    border-color: #007bff;
+    /* Виділення синім при фокусі */
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    background-color: #007bff;
+    /* Синій колір кнопки */
+    color: white;
+    /* Білий текст */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /* Вказівник на кнопку */
+    transition: background-color 0.3s ease-in-out;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    /* Темно-синій при наведенні */
+}
+
+.button svg {
+    margin-right: 5px;
+    /* Відступ між іконкою та текстом */
+}
