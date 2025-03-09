@@ -1,7 +1,7 @@
 import css from "./TodoList.module.css";
-import { TodoListItem } from "./TodoListItem";
+import TodoListItem  from "../TodoListItem/TodoListItem";
 
-export const TodoList = ({ todos, onDelete }) => {
+ const TodoList = ({ todos, onDelete, onEdit }) => {
   return (
     <ul className={css.list}>
       {todos.map((todo) => (
@@ -12,3 +12,4 @@ export const TodoList = ({ todos, onDelete }) => {
     </ul>
   );
 };
+export default TodoList;
