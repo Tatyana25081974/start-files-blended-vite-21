@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = "07bYvD3hV0e010Zj5m01VzCAu0e0SAkGcGkTtPHRP4tP6YZTEMkrj47yEV"; 
+const API_KEY = 'O7byrD3hV6O1qZejm50YlVzCAueQ5aKGCkIpHPR4tP6yZTEmKrj47yEV';
 axios.defaults.baseURL = 'https://api.pexels.com/v1/';
 axios.defaults.headers.common['Authorization'] = API_KEY;
 axios.defaults.params = {
@@ -8,7 +8,15 @@ axios.defaults.params = {
   per_page: 15,
 };
 
-export const getPhotos = async (query, page) => {
-  const { data } = await axios.get(`/search?query=${query}&page=${page}`);
-  return data;
+export const getPhotos = async (query, page = 1) => {
+  try {
+    const { data } = await axios.get('/search', {
+      params: { query, page },
+    });
+    return data;
+  } catch (error) {
+    console.error('Error fetching photos:', error);
+    return null; // Або throw error, якщо хочеш, щоб виклик `getPhotos` обробляв помилки самостійно
+  }
 };
+
