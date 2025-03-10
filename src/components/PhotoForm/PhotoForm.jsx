@@ -1,3 +1,7 @@
+//PhotoForm — компонент форми пошуку.
+
+
+
 import { useState } from "react"; // Імпортуємо useState для керування станом
 import { FiSearch } from "react-icons/fi"; // Імпортуємо іконку для кнопки пошуку
 import css from "./PhotoForm.module.css"; // Імпортуємо стилі
@@ -34,7 +38,6 @@ const PhotoForm = ({ onSubmit }) => {
       <input
         className={css.input}
         type="text"
-        placeholder="What do you want to find?"
         name="search"
         value={query} // Контрольований інпут
         onChange={handleChange} // Викликає handleChange при зміні тексту
